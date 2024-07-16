@@ -1,39 +1,60 @@
 document.addEventListener("DOMContentLoaded", () => setUp());
 
-const holes = 6;
+const NUM_HOLES = 6;
+
+/**
+ * @type {Array<Hole>}
+ */
+var holes = [];
 
 function setUp(){
     var board = document.getElementById("board");
-    for(let i=0; i<holes;i++){
-        let hole = document.createElement("div");
-        hole.classList.add("hole");
-        hole.setAttribute("id", `hole-${i}`);
-        board.appendChild(hole);
-        hole.addEventListener("mouseover", (e) => startHover(e));
-        hole.addEventListener("click", (e) => onClick(e));
-        hole.addEventListener("mouseleave", (e)=> stopHover(e))
+    for(let i=0; i<NUM_HOLES;i++){
+        let hole = new Hole(i);
+        holes.push(hole)
+        board.appendChild(hole.makeElement());
     }
 }
 
-/**
- * 
- * @param {MouseEvent} event 
- */
-function startHover(event){
-    console.log("Hovering");
-}
 
-/**
- * 
- * @param {MouseEvent} event 
- */
-function onClick(event){
-    console.log("Clicked")
-}
-/**
- * 
- * @param {MouseEvent} event 
- */
-function stopHover(event){
-    console.log("Stopped Hovering")
+
+class Hole{
+    index;
+    constructor(index){
+        this.index = index;
+    }
+    makeElement(){
+        let holeDiv = document.createElement("div");
+        holeDiv.classList.add("hole");
+        holeDiv.setAttribute("id", this.createID());
+        holeDiv.addEventListener("mouseover", (e) => this.startHover(e));
+        holeDiv.addEventListener("click", (e) => this.onClick(e));
+        holeDiv.addEventListener("mouseleave", (e)=> this.stopHover(e))
+        return holeDiv;
+    }
+    createID(){
+        return `hole-${this.index}`
+    }
+    /**
+     * 
+     * @param {MouseEvent} event 
+     */
+    startHover(event){
+        console.log("Hovering");
+    }
+
+    /**
+     * 
+     * @param {MouseEvent} event 
+     */
+    onClick(event){
+        console.log("Clicked")
+    }
+    /**
+     * 
+     * @param {MouseEvent} event 
+     */
+    stopHover(event){
+        console.log("Stopped Hovering")
+    }
 }
