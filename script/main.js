@@ -7,6 +7,8 @@ const NUM_HOLES = 6;
  */
 var holes = [];
 
+var currentMole;
+
 function setUp(){
     var board = document.getElementById("board");
     for(let i=0; i<NUM_HOLES;i++){
@@ -14,9 +16,15 @@ function setUp(){
         holes.push(hole)
         board.appendChild(hole.makeElement());
     }
+    var startButton = document.getElementById("startButton");
+    startButton.addEventListener("click", () => beginGame())
 }
 
-
+function beginGame(){
+    currentMole = new Mole();
+    console.log("Begining Game");
+    console.log(currentMole.getRandomHole())
+}
 
 class Hole{
     index;
@@ -59,5 +67,18 @@ class Hole{
      */
     stopHover(event){
         console.log("Stopped Hovering")
+    }
+}
+
+
+class Mole{
+    currentHole;
+    constructor(){
+        
+    }
+    getRandomHole(){
+        let index = Math.random()*(holes.length-1);
+        index = Math.round(index);
+        return holes[index];
     }
 }
