@@ -1,0 +1,14 @@
+#board {
+    background-color: rgb(127, 65, 3);
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.hole {
+    background-color: black;
+    height: 200px;
+    width: 200px;
+    border-radius: 100%;
+    margin: 100px
+}
