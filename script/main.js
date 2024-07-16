@@ -26,13 +26,16 @@ class Hole{
     makeElement(){
         let holeDiv = document.createElement("div");
         holeDiv.classList.add("hole");
-        holeDiv.setAttribute("id", this.createID());
+        holeDiv.setAttribute("id", this.getID());
         holeDiv.addEventListener("mouseover", (e) => this.startHover(e));
-        holeDiv.addEventListener("click", (e) => this.onClick(e));
+        holeDiv.addEventListener("", (e) => this.onClick(e));
         holeDiv.addEventListener("mouseleave", (e)=> this.stopHover(e))
         return holeDiv;
     }
-    createID(){
+    getElement(){
+        return document.getElementById(this.getID())
+    }
+    getID(){
         return `hole-${this.index}`
     }
     /**
