@@ -12,3 +12,9 @@
     border-radius: 100%;
     margin: 100px
 }
+
+.hole:hover{
+    outline-style: solid;
+    outline-color: red;
+    outline-width: 5px;
+}
