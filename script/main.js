@@ -15,6 +15,8 @@ var currentMole;
 
 const GAME_LEN = 10000;
 const MOLE_SPEED = 1000;
+const HIDDEN_LEN = 250;
+
 
 var gameRunning = false;
 function setUp(){
@@ -52,6 +54,13 @@ function moleSpeed(){
         setTimeout(() => {
             resolve()
         }, MOLE_SPEED)
+    })
+}
+function hideLen(){
+    return new Promise(resolve => {
+        setTimeout(()=> {
+            resolve();
+        }, HIDDEN_LEN)
     })
 }
 async function gameLoop(){
@@ -135,9 +144,18 @@ class Mole{
             return moleElement;
         }
     }
-    getAndMove(){
+    hideMole(){
+        this.getElement().hidden = true;
+    }
+    showMole(){
+        this.getElement().hidden = false;
+    }
+    async getAndMove(){
+        this.hideMole();
+        await hideLen();
         this.getRandomHole();
         this.moveMole();
+        this.showMole();
     }
     moveMole(){
         if(this.currentHole != null){
