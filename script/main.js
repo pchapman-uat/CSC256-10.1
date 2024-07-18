@@ -58,9 +58,11 @@ async function gameLoop(){
     currentMole.getAndMove();
     while(gameRunning){
         await moleSpeed();
+        if(!gameRunning) break;
         console.log("Moving")
         currentMole.getAndMove();
     }
+    currentMole.removeMole();
 }
 
 class Hole{
@@ -153,5 +155,8 @@ class Mole{
         element.classList.add("mole-div")
         element.setAttribute("id", this.getId());
         return element;
+    }
+    removeMole(){
+        this.getElement().remove();
     }
 }
