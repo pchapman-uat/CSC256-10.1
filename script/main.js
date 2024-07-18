@@ -24,6 +24,10 @@ function beginGame(){
     currentMole = new Mole();
     console.log("Begining Game");
     console.log(currentMole.getRandomHole())
+    currentMole.moveMole();
+    setTimeout(() => {
+        console.log("Time Up")
+    }, 5000)
 }
 
 class Hole{
@@ -68,17 +72,49 @@ class Hole{
     stopHover(event){
         console.log("Stopped Hovering")
     }
+    /**
+     * 
+     * @param {HTMLDivElement} moleElement 
+     */
+    loadMole(moleElement){
+        let holeElement = document.getElementById(this.getID());
+        console.log(holeElement)
+        holeElement.appendChild(moleElement);
+    }
 }
 
 
 class Mole{
+    /**
+     * @type {Hole} 
+     */
     currentHole;
-    constructor(){
-        
+    getId(){
+        return "MOLE"
+    }
+    getElement(){
+        let moleElement = document.getElementById(this.getId());
+        if(moleElement == null){
+            return this.generateMoleElement();
+        } else {
+            return moleElement;
+        }
+    }
+    moveMole(){
+        if(this.currentHole != null){
+            this.currentHole.loadMole(this.getElement());
+        }
     }
     getRandomHole(){
         let index = Math.random()*(holes.length-1);
         index = Math.round(index);
-        return holes[index];
+        this.currentHole = holes[index];
+        return this.currentHole;
+    }
+    generateMoleElement(){
+        let element = document.createElement("div");
+        element.classList.add("mole-div")
+        element.setAttribute("id", this.getId());
+        return element;
     }
 }

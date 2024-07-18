@@ -18,3 +18,8 @@
     outline-color: red;
     outline-width: 5px;
 }
+.mole-div{
+    height: inherit;
+    width: inherit;
+    background-color: blue;
+}
