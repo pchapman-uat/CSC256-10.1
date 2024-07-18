@@ -34,7 +34,6 @@ async function beginGame(){
     currentMole = new Mole();
     console.log("Begining Game");
     gameRunning = true;
-    console.log(currentMole.getRandomHole())
     currentMole.moveMole();
     gameLoop();
     await gameLen();
@@ -67,7 +66,9 @@ async function gameLoop(){
     await currentMole.getAndMove();
     while(gameRunning){
         await moleSpeed();
-        if(!gameRunning) break;
+        if(!gameRunning) {
+            await currentMole.hideMole()
+        }
         console.log("Moving")
         await currentMole.getAndMove();
     }
@@ -162,10 +163,11 @@ class Mole{
             setTimeout(()=>{
                 console.log("Animation over")
                 resolve();
-            }, this.aniLen-5)
+            }, this.aniLen-10)
         })
     }
-    hideMole(){
+    async hideMole(){
+        await this.hideAnimation();
         this.getElement().hidden = true;
         this.getElement().style.animation = ""
     }
@@ -173,9 +175,10 @@ class Mole{
         this.getElement().hidden = false;
     }
     async getAndMove(){
-        await this.hideAnimation();
-        this.hideMole();
-        await hideLen();
+        if(this.currentHole != null){
+            await this.hideMole();
+            await hideLen();
+        }
         this.getRandomHole();
         this.moveMole();
         this.showMole();
