@@ -64,12 +64,12 @@ function hideLen(){
     })
 }
 async function gameLoop(){
-    currentMole.getAndMove();
+    await currentMole.getAndMove();
     while(gameRunning){
         await moleSpeed();
         if(!gameRunning) break;
         console.log("Moving")
-        currentMole.getAndMove();
+        await currentMole.getAndMove();
     }
     currentMole.removeMole();
 }
@@ -129,6 +129,7 @@ class Hole{
 
 
 class Mole{
+    aniLen = 1000;
     /**
      * @type {Hole} 
      */
@@ -144,18 +145,44 @@ class Mole{
             return moleElement;
         }
     }
+    hideAnimation(){
+        console.log("Hiding Animation")
+        this.getElement().style.animation = `hideMole ${this.aniLen/1000}s`
+        return new Promise(resolve => {
+            setTimeout(() => {
+                console.log("Animation Over")
+                resolve();
+            },  this.aniLen-5)
+        })
+    }
+    showAnimation(){
+        console.log("Showing Animation")
+        this.getElement().style.animation = `showMole ${this.aniLen/1000}s`
+        return new Promise(resolve => {
+            setTimeout(()=>{
+                console.log("Animation over")
+                resolve();
+            }, this.aniLen-5)
+        })
+    }
     hideMole(){
         this.getElement().hidden = true;
+        this.getElement().style.animation = ""
     }
     showMole(){
         this.getElement().hidden = false;
     }
     async getAndMove(){
+        await this.hideAnimation();
         this.hideMole();
         await hideLen();
         this.getRandomHole();
         this.moveMole();
         this.showMole();
+        await this.showAnimation();
+        this.getElement().style.animation = ""
+        return;
+  
     }
     moveMole(){
         if(this.currentHole != null){

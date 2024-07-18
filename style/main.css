@@ -23,3 +23,20 @@
     width: inherit;
     background-color: blue;
 }
+
+@keyframes hideMole {
+    from {
+        opacity: 100%;
+    }
+    to {
+        opacity: 0%;
+    }
+}
+@keyframes showMole {
+    from {
+        opacity: 0%;
+    }
+    to {
+        opacity: 100%;
+    }
+}
