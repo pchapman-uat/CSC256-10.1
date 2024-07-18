@@ -7,8 +7,16 @@ const NUM_HOLES = 6;
  */
 var holes = [];
 
+
+/**
+ * @type {Mole}
+ */
 var currentMole;
 
+const GAME_LEN = 10000;
+const MOLE_SPEED = 1000;
+
+var gameRunning = false;
 function setUp(){
     var board = document.getElementById("board");
     for(let i=0; i<NUM_HOLES;i++){
@@ -20,14 +28,39 @@ function setUp(){
     startButton.addEventListener("click", () => beginGame())
 }
 
-function beginGame(){
+async function beginGame(){
     currentMole = new Mole();
     console.log("Begining Game");
+    gameRunning = true;
     console.log(currentMole.getRandomHole())
     currentMole.moveMole();
-    setTimeout(() => {
-        console.log("Time Up")
-    }, 5000)
+    gameLoop();
+    await gameLen();
+    gameRunning = false;
+    console.log("Game Over")
+    
+}
+function gameLen(){
+    return new Promise(resolve => {
+        setTimeout(() => { 
+            resolve()
+        }, GAME_LEN)
+    })
+}
+function moleSpeed(){
+    return new Promise(resolve => {
+        setTimeout(() => {
+            resolve()
+        }, MOLE_SPEED)
+    })
+}
+async function gameLoop(){
+    currentMole.getAndMove();
+    while(gameRunning){
+        await moleSpeed();
+        console.log("Moving")
+        currentMole.getAndMove();
+    }
 }
 
 class Hole{
@@ -99,6 +132,10 @@ class Mole{
         } else {
             return moleElement;
         }
+    }
+    getAndMove(){
+        this.getRandomHole();
+        this.moveMole();
     }
     moveMole(){
         if(this.currentHole != null){
