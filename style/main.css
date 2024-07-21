@@ -1,69 +1,86 @@
+/* Global Styles */
 body {
-    background-image: linear-gradient(rgb(105, 197, 0), rgb(255, 165, 0),rgb(255, 165, 0));
+    background-image: linear-gradient(rgb(105, 197, 0), rgb(255, 165, 0), rgb(255, 165, 0));
     padding: 2%;
 }
+
+/* Header Styles */
 header {
     text-align: center;
     margin-bottom: 50px;
     display: flex;
     justify-content: space-around;
 }
+
 header > div {
     background-color: rgba(0,0,0,0.2);
     padding: 2%;
     border-radius: 25px;
 }
+
+/* Game Board Styles */
 #gameBoard {
     border-radius: 50px;
 }
+
 .gameBoard {
     background-color: rgb(127, 65, 3);
 }
+
 .winGameBoard {
     background-color: rgba(0,255,0,0.7);
 }
+
 #board {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-    padding: 50px
+    padding: 50px;
 }
 
+/* Hole Styles */
 .hole {
     background-color: black;
     height: 150px;
     width: 150px;
     border-radius: 100%;
-    margin: 50px
+    margin: 50px;
 }
 
-.hole:hover{
+.hole:hover {
     outline-style: solid;
     outline-color: red;
     outline-width: 5px;
 }
-.mole-div{
+
+/* Mole Styles */
+.mole-div {
     height: 100%;
     width: 100%;
     display: flex;
     justify-content: space-around;
 }
 
-.mole-character{
+.mole-character {
     width: 60%;
     margin-bottom: 10px;
     background-image: url(../assets/mole-svgrepo-com.svg);
 }
 
+/* Mole Color Filters */
 .whiteFilter {
     filter: invert(100%) sepia(100%) saturate(38%) hue-rotate(254deg) brightness(110%) contrast(110%);  
 }
+
 .redFilter {
     filter: invert(10%) sepia(88%) saturate(6433%) hue-rotate(1deg) brightness(119%) contrast(114%);
 }
+
 .yellowFilter {
     filter: invert(89%) sepia(53%) saturate(952%) hue-rotate(359deg) brightness(101%) contrast(104%);
 }
+
+/* Win Screen Styles */
 #winScreen {
     text-align: center;
     padding: 50px;
@@ -71,6 +88,12 @@ header > div {
     border-radius: 25px;
     display: none;
 }
+
+#winHighScore {
+    display: none;
+}
+
+/* Score Styles */
 #scores {
     position: absolute;
     font-size: larger;
@@ -81,15 +104,19 @@ header > div {
     display: flex;
     justify-content: space-around;
 }
+
 .scoreP {
     background-color: rgba(0,0,0,0.3);
     border-radius: 10px;
     padding: 10px;
 }
+
+/* Button Styles */
 .btnContainer {
     display: flex;
     justify-content: space-around;
 }
+
 #startButton {
     margin-bottom: 30px;
     border-radius: 5px;
@@ -98,24 +125,15 @@ header > div {
     font-size: larger;
 }
 
-#winHighScore{
-    display: none;
-}
+/* Animations */
 @keyframes hideMole {
-    from {
-        opacity: 100%;
-    }
-    to {
-        opacity: 0%;
-    }
+    from { opacity: 100%; }
+    to { opacity: 0%; }
 }
+
 @keyframes showMole {
-    from {
-        opacity: 0%;
-    }
-    to {
-        opacity: 100%;
-    }
+    from { opacity: 0%; }
+    to { opacity: 100%; }
 }
 
 @keyframes shake {
