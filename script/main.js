@@ -58,7 +58,7 @@ const GAME_LEN = 15000;
  * Duration the mole is visible
  * @type {number} time in milliseconds 
  */
-const MOLE_SPEED = 5000;
+const MOLE_SPEED = 1500;
 /**
  * How long the mole is hidden
  * @type {number} time in milliseconds 
@@ -459,9 +459,9 @@ class Mole{
         moleCharacter.classList.add("whiteFilter")
         element.classList.add("mole-div")
         element.setAttribute("id", this.id);
-        moleCharacter.addEventListener("click", (e) => this.onClick(e))
-        moleCharacter.addEventListener("mouseover", (e) => this.onHover(e))
-        moleCharacter.addEventListener("mouseout", (e) => this.onHoverEnd(e))
+        element.addEventListener("click", (e) => this.onClick(e))
+        element.addEventListener("mouseover", (e) => this.onHover(e))
+        element.addEventListener("mouseout", (e) => this.onHoverEnd(e))
         element.appendChild(moleCharacter);
         return element;
     }
@@ -482,7 +482,7 @@ class Mole{
         this.getElement().style.pointerEvents = "none";
         score++;
         ELEMENTS.scoreElement.innerHTML = score;
-        let childElement = this.getElement().children.item(0)
+        let childElement = this.getElement().firstChild;
         childElement.classList.add("redFilter")
         childElement.classList.remove("whiteFilter")
         childElement.classList.remove("yellowFilter")
@@ -515,7 +515,7 @@ class Mole{
          * @type {HTMLElement}
          */
         console.log("Stopped hovering Child")
-        let childElement = this.getElement().children.item(0)
+        let childElement = this.getElement().firstChild
         childElement.style.animation = ""
         if(this.clicked) return;
         childElement.classList.add("whiteFilter")
