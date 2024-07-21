@@ -454,7 +454,6 @@ class Mole{
     generateMoleElement(){
         let element = document.createElement("div");
         let moleCharacter = document.createElement("img")
-        moleCharacter.src = "../assets/mole-svgrepo-com.svg";
         moleCharacter.classList.add("mole-character");
         moleCharacter.classList.add("whiteFilter")
         element.classList.add("mole-div")

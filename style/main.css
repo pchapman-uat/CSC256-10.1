@@ -64,7 +64,7 @@ header > div {
 .mole-character {
     width: 60%;
     margin-bottom: 10px;
-    background-image: url(../assets/mole-svgrepo-com.svg);
+    content: url(../assets/mole-svgrepo-com.svg);
 }
 
 /* Mole Color Filters */
