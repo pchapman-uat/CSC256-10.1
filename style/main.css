@@ -1,5 +1,11 @@
+#gameBoard {
+    border-radius: 50px;
+}
 .gameBoard {
     background-color: rgb(127, 65, 3);
+}
+.winGameBoard {
+    background-color: rgba(0,255,0,0.7);
 }
 #board {
     display: flex;
@@ -32,9 +38,8 @@
     margin: 10px;
     background-color: red;
 }
-.winScreen {
+#winScreen {
     text-align: center;
-    background-color: rgba(0,255,0,0.5);
     padding: 50px;
     margin: 20px;
     border-radius: 25px;

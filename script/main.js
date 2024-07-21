@@ -24,7 +24,7 @@ var currentMole;
  * Total Duration of the Game
  * @type {number} time in milliseconds 
  */
-const GAME_LEN = 10000;
+const GAME_LEN = 5;
 
 /**
  * Duration the mole is visible
@@ -81,6 +81,11 @@ function setUp(){
  * @see {@link gameRunning} - Game running boolean
  */
 async function beginGame(){
+    document.getElementById("board").style.display = "flex";
+    document.getElementById("gameBoard").classList.add("gameBoard");
+    document.getElementById("gameBoard").classList.remove("winGameBoard");
+    document.getElementById("winScreen").style.display = "none";
+    document.getElementById("startButton").disabled = true;
     currentMole = new Mole();
     console.log("Begining Game");
     gameRunning = true;
@@ -146,13 +151,21 @@ async function gameLoop(){
     await currentMole.hideAnimation();
     await hideLen();
     currentMole.removeMole();
+    finishGame();
 }
 
 /**
  * Handle finishing the game
  */
 function finishGame(){
-    console.log("You won the game")
+    console.log("You won the game");
+    document.getElementById("winScreen").style.display = "block";
+    document.getElementById("winScore").innerHTML = score;
+    document.getElementById("board").style.display = "none";
+    document.getElementById("gameBoard").classList.remove("gameBoard")
+    document.getElementById("gameBoard").classList.add("winGameBoard")
+    document.getElementById("startButton").disabled = false;
+    document.getElementById("startButton").innerHTML = "Restart";
 }
 class Hole{
     /**
