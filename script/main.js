@@ -58,7 +58,7 @@ const GAME_LEN = 15000;
  * Duration the mole is visible
  * @type {number} time in milliseconds 
  */
-const MOLE_SPEED = 1000;
+const MOLE_SPEED = 5000;
 /**
  * How long the mole is hidden
  * @type {number} time in milliseconds 
@@ -409,12 +409,19 @@ class Mole{
         }
         this.onHoverEnd();
         this.getRandomHole();
+        this.resetFiltersToWhite();
         this.moveMole();
         this.showMole();
         await this.showAnimation();
         this.getElement().style.animation = ""
         return;
   
+    }
+    resetFiltersToWhite(){
+        let childElement = this.getElement().firstElementChild;
+        childElement.classList.remove("redFilter");
+        childElement.classList.remove("yellowFilter");
+        childElement.classList.add("whiteFilter");
     }
     /**
      * Move the mole to a hole
@@ -449,6 +456,7 @@ class Mole{
         let moleCharacter = document.createElement("img")
         moleCharacter.src = "../assets/mole-svgrepo-com.svg";
         moleCharacter.classList.add("mole-character");
+        moleCharacter.classList.add("whiteFilter")
         element.classList.add("mole-div")
         element.setAttribute("id", this.id);
         moleCharacter.addEventListener("click", (e) => this.onClick(e))
@@ -473,11 +481,15 @@ class Mole{
         this.clicked = true;
         this.getElement().style.pointerEvents = "none";
         score++;
-        scoreElement.innerHTML = score;
-        await this.hideMole();
-        await hideLen();
+        ELEMENTS.scoreElement.innerHTML = score;
+        let childElement = this.getElement().children.item(0)
+        childElement.classList.add("redFilter")
+        childElement.classList.remove("whiteFilter")
+        childElement.classList.remove("yellowFilter")
+        await this.hideAnimation();
         this.getElement().style.animation = ""
         this.getElement().style.pointerEvents = "auto";
+
     }
     /**
      * On hovering over mole element
@@ -490,6 +502,9 @@ class Mole{
         let childElement = this.getElement().children.item(0)
         console.log(childElement)
         childElement.style.animation = "shake 0.2s linear infinite"
+        if(this.clicked) return;
+        childElement.classList.add("yellowFilter")
+        childElement.classList.remove("whiteFilter")
     }
     /**
      * On hovering end over mole element
@@ -500,8 +515,11 @@ class Mole{
          * @type {HTMLElement}
          */
         console.log("Stopped hovering Child")
-        this.getElement().children.item(0).style.animation = ""
-        
+        let childElement = this.getElement().children.item(0)
+        childElement.style.animation = ""
+        if(this.clicked) return;
+        childElement.classList.add("whiteFilter")
+        childElement.classList.remove("yellowFilter")
     }
 
 }
