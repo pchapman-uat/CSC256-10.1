@@ -140,12 +140,11 @@ async function gameLoop(){
     await currentMole.getAndMove();
     while(gameRunning){
         await moleSpeed();
-        if(!gameRunning) {
-            await currentMole.hideMole();
-        }
         console.log("Moving")
         await currentMole.getAndMove();
     }
+    await currentMole.hideAnimation();
+    await hideLen();
     currentMole.removeMole();
 }
 
@@ -273,8 +272,9 @@ class Mole{
         return new Promise(resolve => {
             setTimeout(() => {
                 console.log("Animation Over")
+                this.getElement().style.visibility = "hidden"
                 resolve();
-            },  this.aniLen-5)
+            },  this.aniLen-15)
         })
     }
     /**
@@ -285,6 +285,7 @@ class Mole{
      */
     showAnimation(){
         console.log("Showing Animation")
+        this.getElement().style.visibility = "visible"
         this.getElement().style.animation = `showMole ${this.aniLen/1000}s`
         return new Promise(resolve => {
             setTimeout(()=>{
@@ -325,11 +326,11 @@ class Mole{
      * @see {@link Mole.getElement} - Get the mole element
      */
     async getAndMove(){
-        this.onHoverEnd();
         if(this.currentHole != null){
             await this.hideMole();
             await hideLen();
         }
+        this.onHoverEnd();
         this.getRandomHole();
         this.moveMole();
         this.showMole();
