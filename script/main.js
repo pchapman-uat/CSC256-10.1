@@ -1,6 +1,34 @@
 document.addEventListener("DOMContentLoaded", () => setUp());
 
 /**
+ * @typedef {Object} Elements
+ * @property {HTMLDivElement} scores - The scores element
+ * @property {HTMLDivElement} scoreElement - The score element
+ * @property {HTMLDivElement} highScoreElement - The high score element
+ * @property {HTMLDivElement} board - The board element
+ * @property {HTMLDivElement} gameBoard - The game board element
+ * @property {HTMLButtonElement} startButton - The start button element
+ * @property {HTMLDivElement} winScreen - The win screen element
+ * @property {HTMLDivElement} winHighScore - The win high score element
+ * @property {HTMLDivElement} winScore - The win score element
+ */
+/**
+ * All Elements used by the game
+ * @type {Elements}
+ */
+const ELEMENTS = {
+  scores: null,
+  scoreElement: null,
+  highScoreElement: null,
+  board: null,
+  gameBoard: null,
+  startButton: null,
+  winScreen : null,
+  winHighScore: null,
+  winScore: null,
+}
+
+/**
  * Number of holes on the board
  * @type {number}
  */
@@ -44,10 +72,20 @@ const HIDDEN_LEN = 250;
 var score = 0;
 
 /**
+ * High Score of all games
+ * @type {number}
+ */
+var highScore = 0;
+/**
  * Score element of the game
  * @type {HTMLDivElement}
  */
 var scoreElement;
+/**
+ * High Score Element of the game
+ * @type {HTMLDivElement}
+ */
+var highScoreElement;
 /**
  * If the game is currently running
  * @type {boolean}
@@ -63,15 +101,25 @@ var gameRunning = false;
  * @see {@link Hole} - Hole class used for objects
  */
 function setUp(){
-    var board = document.getElementById("board");
+    ELEMENTS.board = document.getElementById("board");
     for(let i=0; i<NUM_HOLES;i++){
         let hole = new Hole(i);
         holes.push(hole)
-        board.appendChild(hole.makeElement());
+        ELEMENTS.board.appendChild(hole.makeElement());
     }
-    var startButton = document.getElementById("startButton");
-    startButton.addEventListener("click", () => beginGame())
-    scoreElement = document.getElementById("score");
+    ELEMENTS.startButton = document.getElementById("startButton");
+    ELEMENTS.startButton.addEventListener("click", () => beginGame())
+
+    // Set ELEMENTS Object
+    ELEMENTS.scores = document.getElementById("scores");
+    ELEMENTS.scoreElement = document.getElementById("score");
+    ELEMENTS.highScoreElement = document.getElementById("highScore");
+    ELEMENTS.board = document.getElementById("board");
+    ELEMENTS.gameBoard = document.getElementById("gameBoard");
+    ELEMENTS.startButton = document.getElementById("startButton");
+    ELEMENTS.winScreen = document.getElementById("winScreen");
+    ELEMENTS.winHighScore = document.getElementById("winHighScore");
+    ELEMENTS.winScore = document.getElementById("winScore");
 }
 
 /**
@@ -81,11 +129,12 @@ function setUp(){
  * @see {@link gameRunning} - Game running boolean
  */
 async function beginGame(){
-    document.getElementById("board").style.display = "flex";
-    document.getElementById("gameBoard").classList.add("gameBoard");
-    document.getElementById("gameBoard").classList.remove("winGameBoard");
-    document.getElementById("winScreen").style.display = "none";
-    document.getElementById("startButton").disabled = true;
+    ELEMENTS.scores.style.display = "flex";
+    ELEMENTS.board.style.display = "flex";
+    ELEMENTS.gameBoard.classList.add("gameBoard");
+    ELEMENTS.gameBoard.classList.remove("winGameBoard");
+    ELEMENTS.winScreen.style.display = "none";
+    ELEMENTS.startButton.disabled = true;
     currentMole = new Mole();
     console.log("Begining Game");
     gameRunning = true;
@@ -159,13 +208,22 @@ async function gameLoop(){
  */
 function finishGame(){
     console.log("You won the game");
-    document.getElementById("winScreen").style.display = "block";
-    document.getElementById("winScore").innerHTML = score;
-    document.getElementById("board").style.display = "none";
-    document.getElementById("gameBoard").classList.remove("gameBoard")
-    document.getElementById("gameBoard").classList.add("winGameBoard")
-    document.getElementById("startButton").disabled = false;
-    document.getElementById("startButton").innerHTML = "Restart";
+    ELEMENTS.winScreen.style.display = "block";
+    ELEMENTS.winScore.innerHTML = score;
+    ELEMENTS.board.style.display = "none";
+    ELEMENTS.gameBoard.classList.remove("gameBoard")
+    ELEMENTS.gameBoard.classList.add("winGameBoard")
+    ELEMENTS.startButton.disabled = false;
+    ELEMENTS.startButton.innerHTML = "Restart";
+    ELEMENTS.scores.style.display = "none";
+    if(score > highScore){
+        ELEMENTS.highScoreElement.innerHTML = score;
+        highScore = score;
+        ELEMENTS.winHighScore.style.display = "block";
+    }
+    score = 0;
+    ELEMENTS.scoreElement.innerHTML = score;
+    ELEMENTS.highScoreElement.innerHTML = highScore;
 }
 class Hole{
     /**

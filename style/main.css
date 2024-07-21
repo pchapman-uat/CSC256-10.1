@@ -45,15 +45,20 @@
     border-radius: 25px;
     display: none;
 }
-.scoreP {
+#scores {
     position: absolute;
-    margin-left: 50px;
     font-size: larger;
     font-family: 'Courier New', Courier, monospace;
+    width: 100%;
+    margin-right: 30px;
+    color: white;
+    display: flex;
+    justify-content: space-around;
+}
+.scoreP {
     background-color: rgba(0,0,0,0.3);
     border-radius: 10px;
     padding: 10px;
-    color: white;
 }
 .btnContainer {
     display: flex;
@@ -65,6 +70,10 @@
     height: 50px;
     width: 200px;
     font-size: larger;
+}
+
+#winHighScore{
+    display: none;
 }
 @keyframes hideMole {
     from {
