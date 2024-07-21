@@ -1,3 +1,18 @@
+body {
+    background-image: linear-gradient(rgb(105, 197, 0), rgb(255, 165, 0),rgb(255, 165, 0));
+    padding: 2%;
+}
+header {
+    text-align: center;
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: space-around;
+}
+header > div {
+    background-color: rgba(0,0,0,0.2);
+    padding: 2%;
+    border-radius: 25px;
+}
 #gameBoard {
     border-radius: 50px;
 }
