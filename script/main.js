@@ -37,7 +37,17 @@ const MOLE_SPEED = 1000;
  */
 const HIDDEN_LEN = 250;
 
+/**
+ * Score of the game
+ * @type {number}
+ */
+var score = 0;
 
+/**
+ * Score element of the game
+ * @type {HTMLDivElement}
+ */
+var scoreElement;
 /**
  * If the game is currently running
  * @type {boolean}
@@ -61,6 +71,7 @@ function setUp(){
     }
     var startButton = document.getElementById("startButton");
     startButton.addEventListener("click", () => beginGame())
+    scoreElement = document.getElementById("score");
 }
 
 /**
@@ -233,6 +244,10 @@ class Mole{
      */
     id = "MOLE";
     /**
+     * @type {boolean} - If the mole is clicked
+     */
+    clicked = false;
+    /**
      * Get the HTML mole element, if it does not exist, it will generate it
      * @returns {HTMLDivElement} - Element of the mole
      * @see {@link Mole.generateMoleElement} - Generation of the new mole element
@@ -354,6 +369,7 @@ class Mole{
         let element = document.createElement("div");
         element.classList.add("mole-div")
         element.setAttribute("id", this.id);
+        element.addEventListener("click", (e) => this.onClick(e))
         return element;
     }
     /**
@@ -362,5 +378,21 @@ class Mole{
      */
     removeMole(){
         this.getElement().remove();
+    }
+    /**
+     * On click of the mole element
+     * @param {MouseEvent} event 
+     */
+    async onClick(event){
+        console.log("Clicked")
+        this.clicked = true;
+        this.getElement().style.pointerEvents = "none";
+        score++;
+        scoreElement.innerHTML = score;
+        await this.hideMole();
+        await hideLen();
+        this.getElement().style.animation = ""
+        this.getElement().style.pointerEvents = "auto";
+
     }
 }
