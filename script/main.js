@@ -148,6 +148,12 @@ async function gameLoop(){
     currentMole.removeMole();
 }
 
+/**
+ * Handle finishing the game
+ */
+function finishGame(){
+    console.log("You won the game")
+}
 class Hole{
     /**
      * @type {number} index of the hole

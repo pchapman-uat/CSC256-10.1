@@ -1,5 +1,7 @@
-#board {
+.gameBoard {
     background-color: rgb(127, 65, 3);
+}
+#board {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
@@ -29,6 +31,35 @@
     width: 100%;
     margin: 10px;
     background-color: red;
+}
+.winScreen {
+    text-align: center;
+    background-color: rgba(0,255,0,0.5);
+    padding: 50px;
+    margin: 20px;
+    border-radius: 25px;
+    display: none;
+}
+.scoreP {
+    position: absolute;
+    margin-left: 50px;
+    font-size: larger;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: rgba(0,0,0,0.3);
+    border-radius: 10px;
+    padding: 10px;
+    color: white;
+}
+.btnContainer {
+    display: flex;
+    justify-content: space-around;
+}
+#startButton {
+    margin-bottom: 30px;
+    border-radius: 5px;
+    height: 50px;
+    width: 200px;
+    font-size: larger;
 }
 @keyframes hideMole {
     from {

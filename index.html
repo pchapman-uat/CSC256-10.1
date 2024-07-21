@@ -8,12 +8,17 @@
     <script src="./script/main.js"></script>
 </head>
 <body>
-    <p id="score">0</p>
+    
     <section class="gameBoard">
-        <div id="board">
-
+        <div class="winScreen">
+            <h1>You Win</h1>
+            <p>Your score is: <span id="winScore"></span></p>
         </div>
-        <button id="startButton">Begin Game</button>
+        <p class="scoreP">Score: <span id="score">0</span></p>
+        <div id="board"></div>
+        <div class="btnContainer">
+            <button id="startButton">Begin Game</button>
+        </div>
     </section>
 </body>
 </html>
