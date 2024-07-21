@@ -325,6 +325,7 @@ class Mole{
      * @see {@link Mole.getElement} - Get the mole element
      */
     async getAndMove(){
+        this.onHoverEnd();
         if(this.currentHole != null){
             await this.hideMole();
             await hideLen();
@@ -367,9 +368,14 @@ class Mole{
      */
     generateMoleElement(){
         let element = document.createElement("div");
+        let moleCharacter = document.createElement("div")
+        moleCharacter.classList.add("mole-character");
         element.classList.add("mole-div")
         element.setAttribute("id", this.id);
-        element.addEventListener("click", (e) => this.onClick(e))
+        moleCharacter.addEventListener("click", (e) => this.onClick(e))
+        moleCharacter.addEventListener("mouseover", (e) => this.onHover(e))
+        moleCharacter.addEventListener("mouseout", (e) => this.onHoverEnd(e))
+        element.appendChild(moleCharacter);
         return element;
     }
     /**
@@ -393,6 +399,30 @@ class Mole{
         await hideLen();
         this.getElement().style.animation = ""
         this.getElement().style.pointerEvents = "auto";
-
     }
+    /**
+     * On hovering over mole element
+     * @param {MouseEvent} event 
+     */
+    onHover(event){
+        /**
+         * @type {HTMLElement}
+         */
+        let childElement = this.getElement().children.item(0)
+        console.log(childElement)
+        childElement.style.animation = "shake 0.2s linear infinite"
+    }
+    /**
+     * On hovering end over mole element
+     * @param {MouseEvent} event 
+     */
+    onHoverEnd(event){
+        /**
+         * @type {HTMLElement}
+         */
+        console.log("Stopped hovering Child")
+        this.getElement().children.item(0).style.animation = ""
+        
+    }
+
 }
