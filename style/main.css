@@ -42,16 +42,17 @@ header > div {
     outline-width: 5px;
 }
 .mole-div{
-    height: inherit;
-    width: inherit;
-    background-color: blue;
+    height: 100%;
+    width: 100%;
     display: flex;
+    justify-content: space-around;
 }
 
 .mole-character{
-    width: 100%;
-    margin: 10px;
-    background-color: red;
+    width: 60%;
+    margin-bottom: 10px;
+    background-image: url(../assets/mole-svgrepo-com.svg);
+    filter: invert(100%) sepia(100%) saturate(38%) hue-rotate(254deg) brightness(110%) contrast(110%);  
 }
 #winScreen {
     text-align: center;

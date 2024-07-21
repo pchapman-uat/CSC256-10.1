@@ -52,7 +52,7 @@ var currentMole;
  * Total Duration of the Game
  * @type {number} time in milliseconds 
  */
-const GAME_LEN = 5;
+const GAME_LEN = 15000;
 
 /**
  * Duration the mole is visible
@@ -446,7 +446,8 @@ class Mole{
      */
     generateMoleElement(){
         let element = document.createElement("div");
-        let moleCharacter = document.createElement("div")
+        let moleCharacter = document.createElement("img")
+        moleCharacter.src = "../assets/mole-svgrepo-com.svg";
         moleCharacter.classList.add("mole-character");
         element.classList.add("mole-div")
         element.setAttribute("id", this.id);
